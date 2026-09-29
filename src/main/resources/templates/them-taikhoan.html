@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thêm tài khoản</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <!-- TIÊU ĐỀ -->
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    THÊM TÀI KHOẢN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <!-- HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Tạo tài khoản mới
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Nhập thông tin và phân quyền cho tài khoản mới.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG BÁO LỖI -->
+
+            <div th:if="${loi != null}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <!-- FORM -->
+
+            <form th:action="@{/taikhoan/them}"
+                  method="post">
+
+                <!-- HỌ TÊN -->
+
+                <p>
+
+                    <label for="hoTen">
+                        Họ và tên
+                    </label>
+
+                    <input type="text"
+                           id="hoTen"
+                           name="hoTen"
+                           placeholder="Nhập họ và tên"
+                           required>
+
+                </p>
+
+
+                <!-- TÊN ĐĂNG NHẬP -->
+
+                <p>
+
+                    <label for="tenDangNhap">
+                        Tên đăng nhập
+                    </label>
+
+                    <input type="text"
+                           id="tenDangNhap"
+                           name="tenDangNhap"
+                           placeholder="Nhập tên đăng nhập"
+                           required>
+
+                </p>
+
+
+                <!-- MẬT KHẨU -->
+
+                <p>
+
+                    <label for="matKhau">
+                        Mật khẩu
+                    </label>
+
+                    <input type="password"
+                           id="matKhau"
+                           name="matKhau"
+                           placeholder="Nhập mật khẩu"
+                           required>
+
+                </p>
+
+
+                <!-- VAI TRÒ -->
+
+                <p>
+
+                    <label for="vaiTro">
+                        Vai trò
+                    </label>
+
+                    <select id="vaiTro"
+                            name="vaiTro"
+                            required>
+
+                        <option value="">
+                            -- Chọn vai trò --
+                        </option>
+
+                        <option value="ADMIN">
+                            Quản trị viên
+                        </option>
+
+                        <option value="GIANG_VIEN">
+                            Giảng viên
+                        </option>
+
+                        <option value="SINH_VIEN">
+                            Sinh viên
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <!-- GHI CHÚ -->
+
+                <div style="background:#fffbea;
+                            border-left:4px solid #f2c94c;
+                            padding:12px 15px;
+                            margin:15px 0 20px;
+                            font-size:14px;
+                            color:#555;">
+
+                    <strong>Lưu ý:</strong>
+                    Vai trò được chọn sẽ quyết định chức năng
+                    mà tài khoản có thể sử dụng trong hệ thống.
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <div class="actions">
+
+                    <button type="submit">
+                        Thêm tài khoản
+                    </button>
+
+                    <a th:href="@{/taikhoan}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <!-- QUAY LẠI -->
+
+            <a th:href="@{/taikhoan}"
+               class="back-link">
+                ← Quay lại danh sách tài khoản
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

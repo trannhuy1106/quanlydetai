@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đăng thông báo</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    ĐĂNG THÔNG BÁO
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Tạo thông báo mới
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Nhập nội dung thông báo để đăng lên hệ thống.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form th:action="@{/thongbao/them}"
+                  method="post">
+
+                <!-- TIÊU ĐỀ -->
+
+                <p>
+
+                    <label for="tieuDe">
+                        Tiêu đề
+                    </label>
+
+                    <input type="text"
+                           id="tieuDe"
+                           name="tieuDe"
+                           placeholder="Nhập tiêu đề thông báo"
+                           required>
+
+                </p>
+
+
+                <!-- NỘI DUNG -->
+
+                <p>
+
+                    <label for="noiDung">
+                        Nội dung
+                    </label>
+
+                    <textarea id="noiDung"
+                              name="noiDung"
+                              rows="7"
+                              placeholder="Nhập nội dung thông báo"
+                              required></textarea>
+
+                </p>
+
+
+                <!-- NGƯỜI ĐĂNG -->
+
+                <div style="margin-bottom:20px;">
+
+                    <label>
+                        Người đăng
+                    </label>
+
+                    <div style="background:#f8fafc;
+                                border:1px solid #d9e2ec;
+                                padding:12px 14px;
+                                margin-top:7px;
+                                border-radius:4px;
+                                color:#286092;
+                                font-weight:600;">
+
+                        <span th:if="${taiKhoan.vaiTro == 'GIANG_VIEN'
+                                     and taiKhoan.giangVien != null}"
+                              th:text="${taiKhoan.giangVien.hoTen}">
+                        </span>
+
+                        <span th:if="${taiKhoan.vaiTro == 'ADMIN'}"
+                              th:text="${taiKhoan.tenDangNhap}">
+                        </span>
+
+                    </div>
+
+                    <div style="font-size:12px;
+                                color:#64748b;
+                                margin-top:5px;">
+                        Người đăng được xác định tự động từ tài khoản đang đăng nhập.
+                    </div>
+
+                </div>
+
+
+                <!-- LƯU Ý -->
+
+                <div style="background:#fffbea;
+                            border-left:4px solid #f2c94c;
+                            padding:12px 15px;
+                            margin:15px 0 20px;
+                            font-size:14px;
+                            color:#555;">
+
+                    Thông báo sau khi đăng sẽ được hiển thị
+                    cho người dùng trên hệ thống.
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <div class="actions">
+
+                    <button type="submit">
+                        Đăng thông báo
+                    </button>
+
+                    <a th:href="@{/thongbao}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/thongbao}"
+               class="back-link">
+                ← Quay lại danh sách thông báo
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

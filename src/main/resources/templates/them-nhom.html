@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thêm nhóm sinh viên</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    THÊM NHÓM SINH VIÊN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Thông tin nhóm sinh viên
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Tạo nhóm sinh viên mới để thực hiện và đăng ký đề tài.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form th:action="@{/nhom/them}"
+                  method="post">
+
+
+                <p>
+
+                    <label for="maNhom">
+                        Mã nhóm
+                    </label>
+
+                    <input type="text"
+                           id="maNhom"
+                           name="maNhom"
+                           placeholder="Nhập mã nhóm"
+                           required>
+
+                </p>
+
+
+                <p>
+
+                    <label for="tenNhom">
+                        Tên nhóm
+                    </label>
+
+                    <input type="text"
+                           id="tenNhom"
+                           name="tenNhom"
+                           placeholder="Nhập tên nhóm"
+                           required>
+
+                </p>
+
+
+                <p>
+
+                    <label for="moTa">
+                        Mô tả
+                    </label>
+
+                    <textarea id="moTa"
+                              name="moTa"
+                              rows="5"
+                              placeholder="Nhập mô tả về nhóm"></textarea>
+
+                </p>
+
+
+                <p>
+
+                    <label for="trangThai">
+                        Trạng thái
+                    </label>
+
+                    <select id="trangThai"
+                            name="trangThai"
+                            required>
+
+                        <option value="HOAT_DONG">
+                            Hoạt động
+                        </option>
+
+                        <option value="KHONG_HOAT_DONG">
+                            Không hoạt động
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        + Thêm nhóm
+                    </button>
+
+                    <a th:href="@{/nhom}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/nhom}"
+               class="back-link">
+                ← Quay lại danh sách nhóm
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

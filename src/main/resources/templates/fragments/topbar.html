@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<header class="topbar" th:fragment="topbar">
+
+    <div>
+        <h1>HỆ THỐNG QUẢN LÝ ĐỀ TÀI</h1>
+
+        <p>
+            TRƯỜNG ĐẠI HỌC CÔNG NGHỆ KỸ THUẬT TP.HCM
+        </p>
+    </div>
+
+    <div class="topbar-right"
+         th:if="${session.taiKhoan != null}">
+
+        <span>
+            Xin chào,
+            <strong th:text="${session.taiKhoan.hoTen}">
+                Người dùng
+            </strong>
+        </span>
+
+        <a th:href="@{/dangxuat}"
+           class="logout">
+            Đăng xuất
+        </a>
+
+    </div>
+
+</header>
+
+</body>
+</html>

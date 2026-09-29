@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sửa đợt đăng ký</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+                <div class="page-title-label">
+                    SỬA ĐỢT ĐĂNG KÝ
+                </div>
+
+                <div class="page-title-line"></div>
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Cập nhật đợt đăng ký
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Chỉnh sửa thời gian và trạng thái của đợt đăng ký.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form th:action="@{/dotdangky/sua/{id}(id=${dotDangKy.id})}"
+                  th:object="${dotDangKy}"
+                  method="post">
+
+
+                <p>
+                    <label for="tenDot">
+                        Tên đợt
+                    </label>
+
+                    <input type="text"
+                           id="tenDot"
+                           th:field="*{tenDot}"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="loai">
+                        Loại
+                    </label>
+
+                    <select id="loai"
+                            th:field="*{loai}"
+                            required>
+
+                        <option value="">
+                            -- Chọn loại đợt đăng ký --
+                        </option>
+
+                        <option value="MON_HOC">
+                            Môn học
+                        </option>
+
+                        <option value="NCKH">
+                            Nghiên cứu khoa học
+                        </option>
+
+                        <option value="TLCN">
+                            Tiểu luận chuyên ngành
+                        </option>
+
+                        <option value="KLTN">
+                            Khóa luận tốt nghiệp
+                        </option>
+
+                    </select>
+                </p>
+
+
+                <p>
+                    <label for="gvBatDau">
+                        Giảng viên bắt đầu đăng ký
+                    </label>
+
+                    <input type="datetime-local"
+                           id="gvBatDau"
+                           th:field="*{gvBatDau}"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="gvKetThuc">
+                        Giảng viên kết thúc đăng ký
+                    </label>
+
+                    <input type="datetime-local"
+                           id="gvKetThuc"
+                           th:field="*{gvKetThuc}"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="svBatDau">
+                        Sinh viên bắt đầu đăng ký
+                    </label>
+
+                    <input type="datetime-local"
+                           id="svBatDau"
+                           th:field="*{svBatDau}"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="svKetThuc">
+                        Sinh viên kết thúc đăng ký
+                    </label>
+
+                    <input type="datetime-local"
+                           id="svKetThuc"
+                           th:field="*{svKetThuc}"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="hanGvpbNopDiem">
+                        Hạn GVPB nộp điểm
+                    </label>
+
+                    <input type="datetime-local"
+                           id="hanGvpbNopDiem"
+                           th:field="*{hanGvpbNopDiem}">
+                </p>
+
+
+                <p>
+                    <label for="ngayBaoCaoHoiDong">
+                        Ngày báo cáo hội đồng
+                    </label>
+
+                    <input type="datetime-local"
+                           id="ngayBaoCaoHoiDong"
+                           th:field="*{ngayBaoCaoHoiDong}">
+                </p>
+
+
+                <p>
+                    <label for="trangThai">
+                        Trạng thái
+                    </label>
+
+                    <select id="trangThai"
+                            th:field="*{trangThai}">
+
+                        <option value="CHUA_MO">
+                            Chưa mở
+                        </option>
+
+                        <option value="DANG_MO">
+                            Đang mở
+                        </option>
+
+                        <option value="DA_DONG">
+                            Đã đóng
+                        </option>
+
+                    </select>
+                </p>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        Lưu thay đổi
+                    </button>
+
+                    <a th:href="@{/dotdangky}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/dotdangky}"
+               class="back-link">
+                ← Quay lại danh sách đợt đăng ký
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

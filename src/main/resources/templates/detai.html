@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách đề tài
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý thông tin các đề tài trong hệ thống.
+                    </p>
+
+                </div>
+
+
+                <!-- ADMIN THÊM ĐỀ TÀI -->
+
+                <a th:href="@{/detai/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro == 'ADMIN'}">
+                    + Thêm đề tài
+                </a>
+
+
+                <!-- GIẢNG VIÊN ĐỀ XUẤT ĐỀ TÀI -->
+
+                <a th:href="@{/detai/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
+                    + Đề xuất đề tài
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Mã đề tài</th>
+
+                        <th>Tên đề tài</th>
+
+                        <th>Bộ môn</th>
+
+                        <th>Mô tả</th>
+
+                        <th>Giảng viên đề xuất</th>
+
+                        <th>Đợt đăng ký</th>
+
+                        <th>Trạng thái</th>
+
+                        <th th:if="${session.taiKhoan != null
+                                   and session.taiKhoan.vaiTro == 'ADMIN'}">
+                            Thao tác
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="deTai : ${dsDeTai}">
+
+
+                        <!-- ID -->
+
+                        <td th:text="${deTai.id}">
+                        </td>
+
+
+                        <!-- MÃ ĐỀ TÀI -->
+
+                        <td>
+
+                            <strong th:text="${deTai.maDeTai}"
+                                    style="color:#286092;">
+                            </strong>
+
+                        </td>
+
+
+                        <!-- TÊN ĐỀ TÀI -->
+
+                        <td th:text="${deTai.tenDeTai}">
+                        </td>
+
+
+                        <!-- BỘ MÔN -->
+
+                        <td>
+
+                            <span th:if="${deTai.boMon != null}"
+                                  th:text="${deTai.boMon.maBoMon
+                                           + ' - '
+                                           + deTai.boMon.tenBoMon}">
+                            </span>
+
+                            <span th:if="${deTai.boMon == null}"
+                                  style="color:#dc3545;">
+                                Chưa phân bộ môn
+                            </span>
+
+                        </td>
+
+
+                        <!-- MÔ TẢ -->
+
+                        <td th:text="${deTai.moTa}">
+                        </td>
+
+
+                        <!-- GIẢNG VIÊN ĐỀ XUẤT -->
+
+                        <td>
+
+                            <span th:if="${deTai.giangVien != null
+                                         and !#strings.isEmpty(deTai.giangVien)}"
+                                  th:text="${deTai.giangVien}">
+                            </span>
+
+                            <span th:if="${deTai.giangVien == null
+                                         or #strings.isEmpty(deTai.giangVien)}"
+                                  style="color:#64748b;">
+                                -
+                            </span>
+
+                        </td>
+
+
+                        <!-- ĐỢT ĐĂNG KÝ -->
+
+                        <td>
+
+                            <span th:if="${deTai.dotDangKy != null}"
+                                  th:text="${deTai.dotDangKy.tenDot}">
+                            </span>
+
+                            <span th:if="${deTai.dotDangKy == null}"
+                                  style="color:#64748b;">
+                                -
+                            </span>
+
+                        </td>
+
+
+                        <!-- TRẠNG THÁI -->
+
+                        <td>
+
+                            <span th:if="${deTai.trangThai == 'CHO_DUYET'}"
+                                  style="color:#d97706; font-weight:600;">
+                                Chờ duyệt
+                            </span>
+
+                            <span th:if="${deTai.trangThai == 'CON_TRONG'}"
+                                  style="color:#198754; font-weight:600;">
+                                Còn trống
+                            </span>
+
+                            <span th:if="${deTai.trangThai == 'DA_DANG_KY'}">
+                                Đã đăng ký
+                            </span>
+
+                            <span th:if="${deTai.trangThai == 'DANG_THUC_HIEN'}">
+                                Đang thực hiện
+                            </span>
+
+                            <span th:if="${deTai.trangThai == 'HOAN_THANH'}">
+                                Hoàn thành
+                            </span>
+
+                            <span th:if="${deTai.trangThai == 'TU_CHOI'}"
+                                  style="color:#dc3545; font-weight:600;">
+                                Từ chối
+                            </span>
+
+                            <span th:if="${deTai.trangThai != 'CHO_DUYET'
+                                         and deTai.trangThai != 'CON_TRONG'
+                                         and deTai.trangThai != 'DA_DANG_KY'
+                                         and deTai.trangThai != 'DANG_THUC_HIEN'
+                                         and deTai.trangThai != 'HOAN_THANH'
+                                         and deTai.trangThai != 'TU_CHOI'}"
+                                  th:text="${deTai.trangThai}">
+                            </span>
+
+                        </td>
+
+
+                        <!-- THAO TÁC ADMIN -->
+
+                        <td th:if="${session.taiKhoan != null
+                                   and session.taiKhoan.vaiTro == 'ADMIN'}">
+
+                            <div class="actions">
+
+
+                                <!-- CHỈ HIỆN KHI ĐỀ TÀI ĐANG CHỜ DUYỆT -->
+
+                                <a th:if="${deTai.trangThai == 'CHO_DUYET'}"
+                                   th:href="@{/detai/duyet/{id}(id=${deTai.id})}"
+                                   class="btn"
+                                   onclick="return confirm('Duyệt và công bố đề tài này?')">
+                                    Duyệt
+                                </a>
+
+
+                                <a th:if="${deTai.trangThai == 'CHO_DUYET'}"
+                                   th:href="@{/detai/tuchoi/{id}(id=${deTai.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn từ chối đề tài này?')">
+                                    Từ chối
+                                </a>
+
+
+                                <!-- SỬA -->
+
+                                <a th:href="@{/detai/sua/{id}(id=${deTai.id})}"
+                                   class="btn btn-warning">
+                                    Sửa
+                                </a>
+
+
+                                <!-- XÓA -->
+
+                                <a th:href="@{/detai/xoa/{id}(id=${deTai.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa đề tài này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- KHÔNG CÓ DỮ LIỆU -->
+
+                    <tr th:if="${#lists.isEmpty(dsDeTai)}">
+
+                        <td th:colspan="${session.taiKhoan != null
+                                        and session.taiKhoan.vaiTro == 'ADMIN'
+                                        ? 9 : 8}"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có đề tài nào trong hệ thống.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

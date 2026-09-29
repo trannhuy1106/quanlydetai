@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý tài khoản</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <!-- TIÊU ĐỀ -->
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ TÀI KHOẢN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <!-- HEADER -->
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách tài khoản
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý tài khoản và quyền truy cập của người dùng trong hệ thống.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/taikhoan/them}"
+                   class="btn">
+                    + Thêm tài khoản
+                </a>
+
+            </div>
+
+
+            <!-- BẢNG TÀI KHOẢN -->
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ tên</th>
+                        <th>Vai trò</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="tk : ${dsTaiKhoan}">
+
+                        <!-- ID -->
+
+                        <td th:text="${tk.id}"></td>
+
+
+                        <!-- TÊN ĐĂNG NHẬP -->
+
+                        <td>
+                            <strong th:text="${tk.tenDangNhap}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <!-- HỌ TÊN -->
+
+                        <td th:text="${tk.hoTen}"></td>
+
+
+                        <!-- VAI TRÒ -->
+
+                        <td>
+
+                            <span th:if="${tk.vaiTro == 'ADMIN'}"
+                                  style="font-weight:700;
+                                         color:#b42318;">
+                                Quản trị viên
+                            </span>
+
+
+                            <span th:if="${tk.vaiTro == 'GIANG_VIEN'}"
+                                  style="font-weight:600;
+                                         color:#286092;">
+                                Giảng viên
+                            </span>
+
+
+                            <span th:if="${tk.vaiTro == 'SINH_VIEN'}"
+                                  style="font-weight:600;
+                                         color:#555;">
+                                Sinh viên
+                            </span>
+
+                        </td>
+
+
+                        <!-- TRẠNG THÁI -->
+
+                        <td>
+
+                            <span th:if="${tk.trangThai == 'HOAT_DONG'}"
+                                  style="font-weight:700;
+                                         color:#198754;">
+                                ● Hoạt động
+                            </span>
+
+
+                            <span th:if="${tk.trangThai == 'KHOA'}"
+                                  style="font-weight:700;
+                                         color:#b42318;">
+                                ● Đã khóa
+                            </span>
+
+                        </td>
+
+
+                        <!-- THAO TÁC -->
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a th:if="${tk.trangThai == 'HOAT_DONG'}"
+                                   th:href="@{/taikhoan/khoa/{id}(id=${tk.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?')">
+                                    Khóa
+                                </a>
+
+
+                                <a th:if="${tk.trangThai == 'KHOA'}"
+                                   th:href="@{/taikhoan/mo/{id}(id=${tk.id})}"
+                                   class="btn"
+                                   onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?')">
+                                    Mở khóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- KHÔNG CÓ TÀI KHOẢN -->
+
+                    <tr th:if="${#lists.isEmpty(dsTaiKhoan)}">
+
+                        <td colspan="6"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có tài khoản nào trong hệ thống.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- GHI CHÚ -->
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Tài khoản bị khóa sẽ không thể đăng nhập vào hệ thống.
+                Tài khoản <strong>Quản trị viên</strong> được bảo vệ khỏi thao tác khóa.
+
+            </div>
+
+
+            <!-- QUAY LẠI -->
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thêm giảng viên</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+                <div class="page-title-label">
+                    THÊM GIẢNG VIÊN
+                </div>
+
+                <div class="page-title-line"></div>
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Thông tin giảng viên
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Nhập thông tin để thêm giảng viên mới vào hệ thống.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <form th:action="@{/giangvien/them}"
+                  method="post">
+
+
+                <p>
+                    <label for="maGv">
+                        Mã giảng viên
+                    </label>
+
+                    <input type="text"
+                           id="maGv"
+                           name="maGv"
+                           placeholder="Nhập mã giảng viên"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="hoTen">
+                        Họ và tên
+                    </label>
+
+                    <input type="text"
+                           id="hoTen"
+                           name="hoTen"
+                           placeholder="Nhập họ và tên giảng viên"
+                           required>
+                </p>
+
+
+                <p>
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Ví dụ: giangvien@hcmute.edu.vn">
+                </p>
+
+
+                <p>
+                    <label for="boMon">
+                        Bộ môn
+                    </label>
+
+                    <input type="text"
+                           id="boMon"
+                           name="boMon"
+                           placeholder="Nhập bộ môn">
+                </p>
+
+
+                <p>
+                    <label for="hocVi">
+                        Học vị
+                    </label>
+
+                    <select id="hocVi"
+                            name="hocVi">
+
+                        <option value="">
+                            -- Chọn học vị --
+                        </option>
+
+                        <option value="Cử nhân">
+                            Cử nhân
+                        </option>
+
+                        <option value="Thạc sĩ">
+                            Thạc sĩ
+                        </option>
+
+                        <option value="Tiến sĩ">
+                            Tiến sĩ
+                        </option>
+
+                        <option value="Phó giáo sư">
+                            Phó giáo sư
+                        </option>
+
+                        <option value="Giáo sư">
+                            Giáo sư
+                        </option>
+
+                    </select>
+                </p>
+
+
+                <p>
+                    <label for="trangThai">
+                        Trạng thái
+                    </label>
+
+                    <select id="trangThai"
+                            name="trangThai">
+
+                        <option value="Đang công tác">
+                            Đang công tác
+                        </option>
+
+                        <option value="Tạm nghỉ">
+                            Tạm nghỉ
+                        </option>
+
+                    </select>
+                </p>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        + Thêm giảng viên
+                    </button>
+
+                    <a th:href="@{/giangvien}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/giangvien}"
+               class="back-link">
+                ← Quay lại danh sách giảng viên
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

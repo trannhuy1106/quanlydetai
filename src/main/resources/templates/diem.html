@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý điểm đánh giá</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ ĐIỂM ĐÁNH GIÁ
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách điểm đánh giá
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Theo dõi điểm và nhận xét của giảng viên đối với từng đề tài.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/diem/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
+                    + Chấm điểm
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã đề tài</th>
+                        <th>Tên đề tài</th>
+                        <th>Giảng viên chấm</th>
+                        <th>Điểm</th>
+                        <th>Nhận xét</th>
+                        <th>Ngày chấm</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="dg : ${dsDiem}">
+
+                        <td th:text="${dg.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${dg.deTai.maDeTai}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${dg.deTai.tenDeTai}"></td>
+
+
+                        <td th:text="${dg.giangVien.hoTen}"></td>
+
+
+                        <td>
+                            <strong th:text="${dg.diem}"
+                                    style="color:#198754;
+                                           font-size:16px;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${dg.nhanXet}"></td>
+
+
+                        <td th:text="${dg.ngayCham}"></td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a th:href="@{/diem/ketqua/{deTaiId}
+                                   (deTaiId=${dg.deTai.id})}"
+                                   class="btn">
+                                    Xem kết quả
+                                </a>
+
+
+                                <a th:href="@{/diem/xoa/{id}(id=${dg.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa điểm này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsDiem)}">
+
+                        <td colspan="8"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có điểm đánh giá nào.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Điểm đánh giá hợp lệ nằm trong khoảng
+                <strong>0 đến 10</strong>.
+                Giảng viên không được chấm đề tài mà mình đang hướng dẫn.
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

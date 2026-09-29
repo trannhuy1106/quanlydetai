@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý đăng ký đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ ĐĂNG KÝ ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách đăng ký đề tài
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Theo dõi nhóm sinh viên và trạng thái đăng ký đề tài.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/dangky/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro == 'SINH_VIEN'}">
+                    + Đăng ký đề tài
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã nhóm</th>
+                        <th>Tên nhóm</th>
+                        <th>Mã đề tài</th>
+                        <th>Tên đề tài</th>
+                        <th>Đợt đăng ký</th>
+                        <th>Trạng thái</th>
+                        <th>Ghi chú</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="dk : ${dsDangKy}">
+
+                        <td th:text="${dk.id}"></td>
+
+
+                        <td>
+
+                            <strong th:if="${dk.nhom != null}"
+                                    th:text="${dk.nhom.maNhom}"
+                                    style="color:#286092;">
+                            </strong>
+
+                            <span th:if="${dk.nhom == null}"
+                                  style="color:#64748b;">
+                                Dữ liệu cũ
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <span th:if="${dk.nhom != null}"
+                                  th:text="${dk.nhom.tenNhom}">
+                            </span>
+
+                            <span th:if="${dk.nhom == null}"
+                                  style="color:#64748b;">
+                                Chưa gán nhóm
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            <strong th:text="${dk.deTai.maDeTai}">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${dk.deTai.tenDeTai}"></td>
+
+
+                        <td th:text="${dk.dotDangKy.tenDot}"></td>
+
+
+                        <td>
+
+                            <span th:if="${dk.trangThai == 'CHO_DUYET'}"
+                                  style="font-weight:600; color:#b7791f;">
+                                Chờ duyệt
+                            </span>
+
+
+                            <span th:if="${dk.trangThai == 'DA_DUYET'}"
+                                  style="font-weight:600; color:#198754;">
+                                Đã duyệt
+                            </span>
+
+
+                            <span th:if="${dk.trangThai == 'TU_CHOI'}"
+                                  style="font-weight:600; color:#dc3545;">
+                                Từ chối
+                            </span>
+
+                        </td>
+
+
+                        <td th:text="${dk.ghiChu}"></td>
+
+
+                        <td>
+
+                            <div class="actions"
+                                 th:if="${session.taiKhoan != null
+                                         and session.taiKhoan.vaiTro == 'ADMIN'}">
+
+
+                                <a th:if="${dk.trangThai == 'CHO_DUYET'}"
+                                   th:href="@{/dangky/duyet/{id}(id=${dk.id})}"
+                                   class="btn"
+                                   onclick="return confirm('Bạn có chắc muốn duyệt đăng ký này?')">
+                                    Duyệt
+                                </a>
+
+
+                                <a th:if="${dk.trangThai == 'CHO_DUYET'}"
+                                   th:href="@{/dangky/tuchoi/{id}(id=${dk.id})}"
+                                   class="btn btn-warning"
+                                   onclick="return confirm('Bạn có chắc muốn từ chối đăng ký này?')">
+                                    Từ chối
+                                </a>
+
+
+                                <a th:href="@{/dangky/xoa/{id}(id=${dk.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa đăng ký này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+
+                            <span th:if="${session.taiKhoan == null
+                                         or session.taiKhoan.vaiTro != 'ADMIN'}">
+                                -
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsDangKy)}">
+
+                        <td colspan="9"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có đăng ký đề tài.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

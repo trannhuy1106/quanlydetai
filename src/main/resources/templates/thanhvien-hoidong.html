@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thành viên hội đồng</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    THÀNH VIÊN HỘI ĐỒNG
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách thành viên hội đồng
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý giảng viên và vai trò của từng thành viên trong hội đồng.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/hoidong/{id}/thanhvien/them(id=${hoiDong.id})}"
+                   class="btn">
+                    + Thêm giảng viên
+                </a>
+
+            </div>
+
+
+            <!-- THÔNG TIN HỘI ĐỒNG -->
+
+            <div style="background:white;
+                        border:1px solid #ddd;
+                        padding:18px 20px;
+                        margin-bottom:20px;
+                        border-radius:4px;">
+
+                <div style="font-size:14px;
+                            color:#64748b;
+                            margin-bottom:6px;">
+                    Hội đồng
+                </div>
+
+                <div style="font-size:18px;
+                            font-weight:700;
+                            color:#286092;"
+                     th:text="${hoiDong.maHoiDong + ' - ' + hoiDong.tenHoiDong}">
+                </div>
+
+            </div>
+
+
+            <!-- BẢNG THÀNH VIÊN -->
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã giảng viên</th>
+                        <th>Họ tên</th>
+                        <th>Bộ môn</th>
+                        <th>Vai trò</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="tv : ${dsThanhVien}">
+
+                        <td th:text="${tv.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${tv.giangVien.maGv}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${tv.giangVien.hoTen}"></td>
+
+
+                        <td th:text="${tv.giangVien.boMon}"></td>
+
+
+                        <td>
+
+                            <span th:if="${tv.vaiTro == 'CHU_TICH'}"
+                                  style="font-weight:700;
+                                         color:#286092;">
+                                Chủ tịch
+                            </span>
+
+
+                            <span th:if="${tv.vaiTro == 'THU_KY'}"
+                                  style="font-weight:700;
+                                         color:#198754;">
+                                Thư ký
+                            </span>
+
+
+                            <span th:if="${tv.vaiTro == 'THANH_VIEN'}"
+                                  style="font-weight:600;
+                                         color:#555;">
+                                Thành viên
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a th:href="@{/hoidong/{hoiDongId}/thanhvien/xoa/{id}
+                               (hoiDongId=${hoiDong.id}, id=${tv.id})}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Bạn có chắc muốn xóa giảng viên này khỏi hội đồng?')">
+                                Xóa
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsThanhVien)}">
+
+                        <td colspan="6"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Hội đồng chưa có thành viên.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- GHI CHÚ -->
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Hội đồng cần có từ
+                <strong>3 đến 5 giảng viên</strong>,
+                trong đó có
+                <strong>1 Chủ tịch</strong> và
+                <strong>1 Thư ký</strong>.
+
+            </div>
+
+
+            <a th:href="@{/hoidong}"
+               class="back-link">
+                ← Quay lại danh sách hội đồng
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

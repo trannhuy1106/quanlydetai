@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phân công giảng viên phản biện</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    PHÂN CÔNG GIẢNG VIÊN PHẢN BIỆN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Thêm phân công phản biện
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Chọn đề tài và giảng viên để thực hiện phân công phản biện.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG BÁO LỖI -->
+
+            <div th:if="${loi != null}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <form th:action="@{/phanbien/them}"
+                  method="post">
+
+
+                <p>
+
+                    <label for="deTaiId">
+                        Đề tài
+                    </label>
+
+                    <select id="deTaiId"
+                            name="deTaiId"
+                            required>
+
+                        <option value="">
+                            -- Chọn đề tài --
+                        </option>
+
+                        <option th:each="dt : ${dsDeTai}"
+                                th:value="${dt.id}"
+                                th:text="${dt.maDeTai + ' - ' + dt.tenDeTai}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="giangVienId">
+                        Giảng viên phản biện
+                    </label>
+
+                    <select id="giangVienId"
+                            name="giangVienId"
+                            required>
+
+                        <option value="">
+                            -- Chọn giảng viên --
+                        </option>
+
+                        <option th:each="gv : ${dsGiangVien}"
+                                th:value="${gv.id}"
+                                th:text="${gv.maGv + ' - ' + gv.hoTen}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="ghiChu">
+                        Ghi chú
+                    </label>
+
+                    <textarea id="ghiChu"
+                              name="ghiChu"
+                              rows="5"
+                              placeholder="Nhập ghi chú nếu có"></textarea>
+
+                </p>
+
+
+                <div style="background:#fffbea;
+                            border-left:4px solid #f2c94c;
+                            padding:12px 15px;
+                            margin:15px 0 20px;
+                            max-width:850px;
+                            font-size:14px;
+                            color:#555;">
+
+                    Giảng viên đang hướng dẫn đề tài
+                    <strong>không được phân công phản biện chính đề tài đó</strong>.
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        + Phân công
+                    </button>
+
+                    <a th:href="@{/phanbien}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/phanbien}"
+               class="back-link">
+                ← Quay lại danh sách phản biện
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

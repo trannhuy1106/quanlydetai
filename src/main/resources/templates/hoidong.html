@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý hội đồng phản biện</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ HỘI ĐỒNG PHẢN BIỆN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách hội đồng phản biện
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý hội đồng, đề tài phản biện và thành viên hội đồng.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/hoidong/them}"
+                   class="btn">
+                    + Tạo hội đồng
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã hội đồng</th>
+                        <th>Tên hội đồng</th>
+                        <th>Đề tài phản biện</th>
+                        <th>Ngày báo cáo</th>
+                        <th>Địa điểm</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="hd : ${dsHoiDong}">
+
+                        <td th:text="${hd.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${hd.maHoiDong}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${hd.tenHoiDong}"></td>
+
+
+                        <td>
+
+                            <span th:if="${hd.deTai != null}"
+                                  th:text="${hd.deTai.maDeTai + ' - ' + hd.deTai.tenDeTai}">
+                            </span>
+
+                            <span th:if="${hd.deTai == null}"
+                                  style="color:#999;">
+                                Chưa phân công
+                            </span>
+
+                        </td>
+
+
+                        <td th:text="${hd.ngayBaoCao}"></td>
+
+
+                        <td th:text="${hd.diaDiem}"></td>
+
+
+                        <td>
+
+                            <span th:if="${hd.trangThai == 'DANG_HOAT_DONG'}"
+                                  style="font-weight:600; color:#198754;">
+                                Đang hoạt động
+                            </span>
+
+                            <span th:if="${hd.trangThai != 'DANG_HOAT_DONG'}"
+                                  th:text="${hd.trangThai}">
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a th:href="@{/hoidong/{id}/thanhvien(id=${hd.id})}"
+                                   class="btn">
+                                    Thành viên
+                                </a>
+
+                                <a th:href="@{/hoidong/xoa/{id}(id=${hd.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa hội đồng này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsHoiDong)}">
+
+                        <td colspan="8"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có hội đồng phản biện.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Hội đồng phản biện cần có từ
+                <strong>3 đến 5 giảng viên</strong>,
+                bao gồm <strong>Chủ tịch</strong> và
+                <strong>Thư ký</strong>.
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

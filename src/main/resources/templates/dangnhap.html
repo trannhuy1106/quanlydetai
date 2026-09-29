@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đăng nhập - Hệ thống quản lý đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+        }
+
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .login-header {
+            background: #286092;
+            color: white;
+            text-align: center;
+            padding: 28px 25px;
+            border-radius: 6px 6px 0 0;
+            border-bottom: 5px solid #f2c94c;
+        }
+
+        .login-logo {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background: white;
+            color: #286092;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            border: 4px solid rgba(255,255,255,0.25);
+        }
+
+        .login-header h1 {
+            margin: 0 0 8px;
+            font-size: 21px;
+        }
+
+        .login-header p {
+            margin: 0;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .login-title {
+            text-align: center;
+            color: #286092;
+            margin: 0 0 25px;
+            font-size: 20px;
+        }
+
+        .login-form {
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin: 0;
+            max-width: none;
+            box-shadow: none;
+        }
+
+        .login-group {
+            margin-bottom: 18px;
+        }
+
+        .login-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .login-group input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px 13px;
+            border: 1px solid #ccd5df;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .login-group input:focus {
+            border-color: #286092;
+        }
+
+        .login-button {
+            width: 100%;
+            border: none;
+            background: #286092;
+            color: white;
+            padding: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            background: #1f4d76;
+        }
+
+        .login-error {
+            background: #fff3f3;
+            border: 1px solid #f1b5b5;
+            border-left: 4px solid #dc3545;
+            color: #b42318;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .login-footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            margin-top: 18px;
+            line-height: 1.6;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <div class="login-container">
+
+        <!-- PHẦN ĐẦU -->
+
+        <div class="login-header">
+
+            <div class="login-logo">
+                UTE
+            </div>
+
+            <h1>
+                HỆ THỐNG QUẢN LÝ ĐỀ TÀI
+            </h1>
+
+            <p>
+                TRƯỜNG ĐẠI HỌC CÔNG NGHỆ KỸ THUẬT TP.HCM
+            </p>
+
+        </div>
+
+
+        <!-- KHUNG ĐĂNG NHẬP -->
+
+        <div class="login-box">
+
+            <h2 class="login-title">
+                ĐĂNG NHẬP HỆ THỐNG
+            </h2>
+
+
+            <!-- LỖI -->
+
+            <div th:if="${loi != null}"
+                 class="login-error"
+                 th:text="${loi}">
+            </div>
+
+
+            <!-- FORM -->
+
+            <form th:action="@{/dangnhap}"
+                  method="post"
+                  class="login-form">
+
+
+                <div class="login-group">
+
+                    <label for="tenDangNhap">
+                        Tên đăng nhập
+                    </label>
+
+                    <input type="text"
+                           id="tenDangNhap"
+                           name="tenDangNhap"
+                           placeholder="Nhập tên đăng nhập"
+                           autocomplete="username"
+                           required>
+
+                </div>
+
+
+                <div class="login-group">
+
+                    <label for="matKhau">
+                        Mật khẩu
+                    </label>
+
+                    <input type="password"
+                           id="matKhau"
+                           name="matKhau"
+                           placeholder="Nhập mật khẩu"
+                           autocomplete="current-password"
+                           required>
+
+                </div>
+
+
+                <button type="submit"
+                        class="login-button">
+                    Đăng nhập
+                </button>
+
+            </form>
+
+
+            <div class="login-footer">
+                Hệ thống quản lý đề tài sinh viên
+                <br>
+                HCMUTE
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sửa đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    SỬA ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Cập nhật thông tin đề tài
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Chỉnh sửa thông tin của đề tài trong hệ thống.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <form th:action="@{/detai/sua}"
+                  method="post">
+
+                <input type="hidden"
+                       name="id"
+                       th:value="${deTai.id}">
+
+
+                <p>
+
+                    <label for="maDeTai">
+                        Mã đề tài
+                    </label>
+
+                    <input type="text"
+                           id="maDeTai"
+                           name="maDeTai"
+                           th:value="${deTai.maDeTai}"
+                           required>
+
+                </p>
+
+
+                <p>
+
+                    <label for="tenDeTai">
+                        Tên đề tài
+                    </label>
+
+                    <input type="text"
+                           id="tenDeTai"
+                           name="tenDeTai"
+                           th:value="${deTai.tenDeTai}"
+                           required>
+
+                </p>
+
+
+                <p>
+
+                    <label for="boMonId">
+                        Bộ môn
+                    </label>
+
+                    <select id="boMonId"
+                            name="boMonId"
+                            required>
+
+                        <option value="">
+                            -- Chọn bộ môn --
+                        </option>
+
+                        <option th:each="bm : ${dsBoMon}"
+                                th:value="${bm.id}"
+                                th:text="${bm.maBoMon + ' - ' + bm.tenBoMon}"
+                                th:selected="${deTai.boMon != null
+                                              and deTai.boMon.id == bm.id}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="dotDangKyId">
+                        Đợt đăng ký
+                    </label>
+
+                    <select id="dotDangKyId"
+                            name="dotDangKyId">
+
+                        <option value="">
+                            -- Không thuộc đợt đăng ký --
+                        </option>
+
+                        <option th:each="dot : ${dsDotDangKy}"
+                                th:value="${dot.id}"
+                                th:text="${dot.tenDot + ' - ' + dot.loai}"
+                                th:selected="${deTai.dotDangKy != null
+                                              and deTai.dotDangKy.id == dot.id}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="moTa">
+                        Mô tả
+                    </label>
+
+                    <textarea id="moTa"
+                              name="moTa"
+                              rows="6"
+                              th:text="${deTai.moTa}"></textarea>
+
+                </p>
+
+
+                <p>
+
+                    <label for="giangVien">
+                        Giảng viên đề xuất
+                    </label>
+
+                    <input type="text"
+                           id="giangVien"
+                           name="giangVien"
+                           th:value="${deTai.giangVien}"
+                           readonly>
+
+                </p>
+
+
+                <p>
+
+                    <label for="trangThai">
+                        Trạng thái
+                    </label>
+
+                    <select id="trangThai"
+                            name="trangThai"
+                            required>
+
+                        <option value="CHO_DUYET"
+                                th:selected="${deTai.trangThai == 'CHO_DUYET'}">
+                            Chờ duyệt
+                        </option>
+
+                        <option value="CON_TRONG"
+                                th:selected="${deTai.trangThai == 'CON_TRONG'}">
+                            Còn trống
+                        </option>
+
+                        <option value="DA_DANG_KY"
+                                th:selected="${deTai.trangThai == 'DA_DANG_KY'}">
+                            Đã đăng ký
+                        </option>
+
+                        <option value="DANG_THUC_HIEN"
+                                th:selected="${deTai.trangThai == 'DANG_THUC_HIEN'}">
+                            Đang thực hiện
+                        </option>
+
+                        <option value="HOAN_THANH"
+                                th:selected="${deTai.trangThai == 'HOAN_THANH'}">
+                            Hoàn thành
+                        </option>
+
+                        <option value="TU_CHOI"
+                                th:selected="${deTai.trangThai == 'TU_CHOI'}">
+                            Từ chối
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <div style="
+                    background:#fffbea;
+                    border-left:4px solid #f2c94c;
+                    padding:12px 15px;
+                    margin:15px 0 20px;
+                    font-size:14px;
+                    color:#555;">
+
+                    Mỗi đề tài phải thuộc một
+                    <strong>bộ môn</strong> cụ thể và có thể được
+                    liên kết với một <strong>đợt đăng ký</strong>.
+
+                </div>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        Lưu thay đổi
+                    </button>
+
+                    <a th:href="@{/detai}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+            <a th:href="@{/detai}"
+               class="back-link">
+                ← Quay lại danh sách đề tài
+            </a>
+
+        </div>
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

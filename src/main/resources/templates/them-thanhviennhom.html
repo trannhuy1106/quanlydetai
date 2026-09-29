@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thêm thành viên nhóm</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    THÊM THÀNH VIÊN VÀO NHÓM
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Thông tin thành viên
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Chọn nhóm, sinh viên và vai trò để thêm thành viên.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div th:if="${loi}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:12px 16px;
+                        border-radius:4px;
+                        margin-bottom:15px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <form th:action="@{/thanhviennhom/them}"
+                  method="post">
+
+
+                <p>
+
+                    <label for="nhomId">
+                        Chọn nhóm
+                    </label>
+
+                    <select id="nhomId"
+                            name="nhomId"
+                            required>
+
+                        <option value="">
+                            -- Chọn nhóm --
+                        </option>
+
+                        <option th:each="nhom : ${dsNhom}"
+                                th:value="${nhom.id}"
+                                th:text="${nhom.maNhom + ' - ' + nhom.tenNhom}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="sinhVienId">
+                        Chọn sinh viên
+                    </label>
+
+                    <select id="sinhVienId"
+                            name="sinhVienId"
+                            required>
+
+                        <option value="">
+                            -- Chọn sinh viên --
+                        </option>
+
+                        <option th:each="sv : ${dsSinhVien}"
+                                th:value="${sv.id}"
+                                th:text="${sv.maSv + ' - ' + sv.hoTen}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="vaiTro">
+                        Vai trò trong nhóm
+                    </label>
+
+                    <select id="vaiTro"
+                            name="vaiTro"
+                            required>
+
+                        <option value="NHOM_TRUONG">
+                            Nhóm trưởng
+                        </option>
+
+                        <option value="THANH_VIEN">
+                            Thành viên
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        + Thêm thành viên
+                    </button>
+
+                    <a th:href="@{/thanhviennhom}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/thanhviennhom}"
+               class="back-link">
+                ← Quay lại danh sách thành viên
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

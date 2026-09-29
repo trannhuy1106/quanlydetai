@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kết quả đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <!-- TIÊU ĐỀ -->
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    KẾT QUẢ ĐÁNH GIÁ ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <!-- THÔNG TIN ĐỀ TÀI -->
+
+            <div style="background:white;
+                        border:1px solid #ddd;
+                        padding:18px 20px;
+                        margin-bottom:20px;
+                        border-radius:4px;">
+
+                <div style="font-size:14px;
+                            color:#64748b;
+                            margin-bottom:6px;">
+                    Đề tài
+                </div>
+
+                <div style="font-size:19px;
+                            font-weight:700;
+                            color:#286092;"
+                     th:text="${deTai.maDeTai + ' - ' + deTai.tenDeTai}">
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG BÁO LỖI -->
+
+            <div th:if="${loi}"
+                 style="background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <!-- DANH SÁCH ĐIỂM -->
+
+            <div th:if="${loi == null}">
+
+                <div class="page-header">
+
+                    <div>
+
+                        <h2 style="color:#286092; margin-bottom:6px;">
+                            Chi tiết đánh giá
+                        </h2>
+
+                        <p style="color:#64748b; font-size:14px;">
+                            Điểm và nhận xét của các giảng viên đánh giá đề tài.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div style="overflow-x:auto;">
+
+                    <table>
+
+                        <thead>
+
+                        <tr>
+                            <th>Giảng viên chấm</th>
+                            <th>Điểm</th>
+                            <th>Nhận xét</th>
+                        </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                        <tr th:each="dg : ${dsDiem}">
+
+                            <td>
+                                <strong th:text="${dg.giangVien.hoTen}">
+                                </strong>
+                            </td>
+
+                            <td>
+                                <strong th:text="${dg.diem}"
+                                        style="color:#198754;
+                                               font-size:17px;">
+                                </strong>
+                            </td>
+
+                            <td th:text="${dg.nhanXet}"></td>
+
+                        </tr>
+
+
+                        <tr th:if="${#lists.isEmpty(dsDiem)}">
+
+                            <td colspan="3"
+                                style="text-align:center;
+                                       padding:30px;
+                                       color:#64748b;">
+
+                                Chưa có giảng viên chấm điểm đề tài này.
+
+                            </td>
+
+                        </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- ĐÃ CÓ KẾT QUẢ CUỐI -->
+
+                <div th:if="${ketQuaCuoi != null}"
+                     style="background:white;
+                            border:1px solid #d7e7f5;
+                            border-left:5px solid #286092;
+                            padding:22px;
+                            margin-top:25px;
+                            border-radius:4px;">
+
+                    <div style="font-size:14px;
+                                color:#64748b;
+                                margin-bottom:5px;">
+                        KẾT QUẢ CUỐI
+                    </div>
+
+
+                    <div style="display:flex;
+                                align-items:center;
+                                gap:12px;
+                                margin-bottom:18px;">
+
+                        <span style="font-size:18px;
+                                     font-weight:600;">
+                            Điểm cuối:
+                        </span>
+
+                        <span th:text="${#numbers.formatDecimal(
+                                            ketQuaCuoi.diemCuoi,
+                                            1,
+                                            2)}"
+                              style="font-size:30px;
+                                     font-weight:700;
+                                     color:#198754;">
+                        </span>
+
+                        <span style="color:#64748b;">
+                            / 10
+                        </span>
+
+                    </div>
+
+
+                    <p style="margin-bottom:10px;">
+
+                        <strong>Chủ tịch tổng hợp:</strong>
+
+                        <span th:text="${ketQuaCuoi.chuTich.hoTen}">
+                        </span>
+
+                    </p>
+
+
+                    <p style="margin-bottom:10px;">
+
+                        <strong>Ngày tổng hợp:</strong>
+
+                        <span th:text="${#temporals.format(
+                                            ketQuaCuoi.ngayTongHop,
+                                            'dd/MM/yyyy HH:mm')}">
+                        </span>
+
+                    </p>
+
+
+                    <p style="margin-bottom:0;">
+
+                        <strong>Trạng thái:</strong>
+
+
+                        <span th:if="${ketQuaCuoi.trangThai == 'DA_TONG_HOP'}"
+                              style="color:#d97706;
+                                     font-weight:700;">
+
+                            Đã tổng hợp - Chưa công bố
+
+                        </span>
+
+
+                        <span th:if="${ketQuaCuoi.trangThai == 'DA_CONG_BO'}"
+                              style="color:#198754;
+                                     font-weight:700;">
+
+                            Đã công bố
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+
+                <!-- CHƯA CÓ KẾT QUẢ -->
+
+                <div th:if="${ketQuaCuoi == null}"
+                     style="background:#fffbea;
+                            border-left:4px solid #f2c94c;
+                            padding:15px 18px;
+                            margin-top:25px;
+                            color:#555;">
+
+                    Chưa có kết quả cuối được
+                    <strong>Chủ tịch hội đồng</strong>
+                    tổng hợp.
+
+                </div>
+
+
+                <!-- NÚT TỔNG HỢP - GIẢNG VIÊN -->
+
+                <div th:if="${session.taiKhoan != null
+                            and session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
+
+                    <form th:action="@{/diem/tonghop/{id}(id=${deTai.id})}"
+                          method="post"
+                          style="margin-top:20px;">
+
+                        <button type="submit"
+                                onclick="return confirm(
+                                'Bạn có chắc muốn tổng hợp kết quả đề tài này?')">
+
+                            Tổng hợp kết quả
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- NÚT CÔNG BỐ - ADMIN -->
+
+                <div th:if="${session.taiKhoan != null
+                            and session.taiKhoan.vaiTro == 'ADMIN'
+                            and ketQuaCuoi != null
+                            and ketQuaCuoi.trangThai == 'DA_TONG_HOP'}">
+
+                    <a th:href="@{/diem/congbo/{id}(id=${deTai.id})}"
+                       style="display:inline-block;
+                              margin-top:20px;
+                              padding:10px 18px;
+                              background:#198754;
+                              color:white;
+                              text-decoration:none;
+                              border-radius:4px;
+                              font-weight:600;"
+                       onclick="return confirm(
+                       'Bạn có chắc muốn công bố kết quả đề tài này?')">
+
+                        Công bố kết quả
+
+                    </a>
+
+                </div>
+
+
+                <!-- ĐÃ CÔNG BỐ -->
+
+                <div th:if="${session.taiKhoan != null
+                            and session.taiKhoan.vaiTro == 'ADMIN'
+                            and ketQuaCuoi != null
+                            and ketQuaCuoi.trangThai == 'DA_CONG_BO'}"
+                     style="margin-top:20px;
+                            background:#ecfdf3;
+                            border:1px solid #abefc6;
+                            color:#067647;
+                            padding:12px 16px;
+                            border-radius:4px;
+                            font-weight:600;">
+
+                    ✓ Kết quả đề tài này đã được công bố cho sinh viên.
+
+                </div>
+
+            </div>
+
+
+            <!-- QUAY LẠI -->
+
+            <a th:href="@{/diem}"
+               class="back-link"
+               th:if="${session.taiKhoan != null
+                       and session.taiKhoan.vaiTro != 'SINH_VIEN'}">
+
+                ← Quay lại danh sách điểm
+
+            </a>
+
+
+            <a th:href="@{/}"
+               class="back-link"
+               th:if="${session.taiKhoan != null
+                       and session.taiKhoan.vaiTro == 'SINH_VIEN'}">
+
+                ← Về trang chủ
+
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sửa phân công hướng dẫn</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    SỬA PHÂN CÔNG HƯỚNG DẪN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Cập nhật phân công giảng viên
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Chỉnh sửa giảng viên hướng dẫn được phân công cho đề tài.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div th:if="${loi}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <form th:action="@{/phancong/sua/{id}(id=${phanCong.id})}"
+                  method="post">
+
+
+                <p>
+
+                    <label for="deTaiId">
+                        Đề tài
+                    </label>
+
+                    <select id="deTaiId"
+                            name="deTaiId"
+                            required>
+
+                        <option th:each="dt : ${dsDeTai}"
+                                th:value="${dt.id}"
+                                th:text="${dt.maDeTai + ' - ' + dt.tenDeTai}"
+                                th:selected="${dt.id == phanCong.deTai.id}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="giangVienId">
+                        Giảng viên
+                    </label>
+
+                    <select id="giangVienId"
+                            name="giangVienId"
+                            required>
+
+                        <option th:each="gv : ${dsGiangVien}"
+                                th:value="${gv.id}"
+                                th:text="${gv.maGv + ' - ' + gv.hoTen}"
+                                th:selected="${gv.id == phanCong.giangVien.id}">
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="vaiTro">
+                        Vai trò
+                    </label>
+
+                    <select id="vaiTro"
+                            name="vaiTro"
+                            required>
+
+                        <option value="Giảng viên hướng dẫn"
+                                selected>
+                            Giảng viên hướng dẫn
+                        </option>
+
+                    </select>
+
+                </p>
+
+
+                <p>
+
+                    <label for="ghiChu">
+                        Ghi chú
+                    </label>
+
+                    <textarea id="ghiChu"
+                              name="ghiChu"
+                              rows="5"
+                              th:text="${phanCong.ghiChu}"></textarea>
+
+                </p>
+
+
+                <div class="actions">
+
+                    <button type="submit">
+                        Lưu thay đổi
+                    </button>
+
+                    <a th:href="@{/phancong}"
+                       class="btn"
+                       style="background:#6c757d;">
+                        Hủy
+                    </a>
+
+                </div>
+
+            </form>
+
+
+            <a th:href="@{/phancong}"
+               class="back-link">
+                ← Quay lại danh sách phân công
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

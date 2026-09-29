@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phân công hướng dẫn</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    PHÂN CÔNG GIẢNG VIÊN HƯỚNG DẪN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách phân công hướng dẫn
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý giảng viên hướng dẫn được phân công cho từng đề tài.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/phancong/them}"
+                   class="btn">
+                    + Thêm phân công
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã đề tài</th>
+                        <th>Tên đề tài</th>
+                        <th>Mã giảng viên</th>
+                        <th>Giảng viên</th>
+                        <th>Vai trò</th>
+                        <th>Ghi chú</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="pc : ${dsPhanCong}">
+
+                        <td th:text="${pc.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${pc.deTai.maDeTai}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${pc.deTai.tenDeTai}"></td>
+
+
+                        <td>
+                            <strong th:text="${pc.giangVien.maGv}">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${pc.giangVien.hoTen}"></td>
+
+
+                        <td>
+                            <span th:text="${pc.vaiTro}"
+                                  style="font-weight:600; color:#286092;">
+                            </span>
+                        </td>
+
+
+                        <td th:text="${pc.ghiChu}"></td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a th:href="@{/phancong/sua/{id}(id=${pc.id})}"
+                                   class="btn btn-warning">
+                                    Sửa
+                                </a>
+
+
+                                <a th:href="@{/phancong/xoa/{id}(id=${pc.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa phân công này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsPhanCong)}">
+
+                        <td colspan="8"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có phân công giảng viên hướng dẫn.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

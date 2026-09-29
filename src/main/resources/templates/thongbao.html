@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Thông báo</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    THÔNG BÁO
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách thông báo
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Theo dõi các thông báo được đăng trên hệ thống.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/thongbao/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro != 'SINH_VIEN'}">
+                    + Đăng thông báo
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Tiêu đề</th>
+                        <th>Nội dung</th>
+                        <th>Người đăng</th>
+                        <th>Ngày đăng</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="tb : ${dsThongBao}">
+
+                        <td th:text="${tb.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${tb.tieuDe}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+
+                        <td th:text="${tb.noiDung}"></td>
+
+
+                        <td th:text="${tb.nguoiDang}"></td>
+
+
+                        <td th:text="${tb.ngayDang}"></td>
+
+
+                        <td>
+
+                            <span th:if="${tb.trangThai == 'DA_DANG'}"
+                                  style="font-weight:600;
+                                         color:#198754;">
+                                Đã đăng
+                            </span>
+
+                            <span th:if="${tb.trangThai != 'DA_DANG'}"
+                                  th:text="${tb.trangThai}">
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a th:href="@{/thongbao/xoa/{id}(id=${tb.id})}"
+                               class="btn btn-danger"
+                               th:if="${session.taiKhoan != null
+                                       and session.taiKhoan.vaiTro != 'SINH_VIEN'}"
+                               onclick="return confirm('Bạn có chắc muốn xóa thông báo này?')">
+                                Xóa
+                            </a>
+
+                            <span th:if="${session.taiKhoan != null
+                                         and session.taiKhoan.vaiTro == 'SINH_VIEN'}"
+                                  style="color:#64748b;">
+                                Chỉ xem
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsThongBao)}">
+
+                        <td colspan="7"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Hiện chưa có thông báo nào.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

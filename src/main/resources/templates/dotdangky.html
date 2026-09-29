@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý đợt đăng ký</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR DÙNG CHUNG -->
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+
+    <main class="main">
+
+        <!-- TOPBAR DÙNG CHUNG -->
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+
+        <div class="content">
+
+            <!-- TIÊU ĐỀ -->
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    ĐỢT ĐĂNG KÝ
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <!-- HEADER -->
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách đợt đăng ký
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý thời gian đăng ký đề tài của giảng viên và sinh viên.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/dotdangky/them}"
+                   class="btn">
+                    + Thêm đợt đăng ký
+                </a>
+
+            </div>
+
+
+            <!-- BẢNG -->
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên đợt</th>
+                        <th>Loại</th>
+                        <th>GV bắt đầu</th>
+                        <th>GV kết thúc</th>
+                        <th>SV bắt đầu</th>
+                        <th>SV kết thúc</th>
+                        <th>Hạn nộp điểm</th>
+                        <th>Ngày báo cáo hội đồng</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="dot : ${dsDotDangKy}">
+
+                        <td th:text="${dot.id}"></td>
+
+                        <td>
+                            <strong th:text="${dot.tenDot}"
+                                    style="color:#286092;">
+                            </strong>
+                        </td>
+
+                        <td th:text="${dot.loai}"></td>
+
+                        <td th:text="${dot.gvBatDau}"></td>
+
+                        <td th:text="${dot.gvKetThuc}"></td>
+
+                        <td th:text="${dot.svBatDau}"></td>
+
+                        <td th:text="${dot.svKetThuc}"></td>
+
+                        <td th:text="${dot.hanGvpbNopDiem}"></td>
+
+                        <td th:text="${dot.ngayBaoCaoHoiDong}"></td>
+
+                        <td th:text="${dot.trangThai}"></td>
+
+
+                        <td>
+
+                            <div class="actions">
+
+                                <a th:href="@{/dotdangky/sua/{id}(id=${dot.id})}"
+                                   class="btn btn-warning">
+                                    Sửa
+                                </a>
+
+
+                                <a th:href="@{/dotdangky/xoa/{id}(id=${dot.id})}"
+                                   class="btn btn-danger"
+                                   onclick="return confirm('Bạn có chắc muốn xóa đợt đăng ký này?')">
+                                    Xóa
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- KHI CHƯA CÓ DỮ LIỆU -->
+                    <tr th:if="${#lists.isEmpty(dsDotDangKy)}">
+
+                        <td colspan="11"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có đợt đăng ký nào trong hệ thống.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

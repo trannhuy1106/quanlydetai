@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa đăng ký đề tài</title>
+</head>
+
+<body>
+
+    <h1>SỬA ĐĂNG KÝ ĐỀ TÀI</h1>
+
+    <form th:action="@{/dangky/sua/{id}(id=${dangKy.id})}" method="post">
+
+        <p>
+            Sinh viên:
+            <select name="sinhVienId" required>
+                <option th:each="sv : ${dsSinhVien}"
+                        th:value="${sv.id}"
+                        th:text="${sv.maSv + ' - ' + sv.hoTen}"
+                        th:selected="${sv.id == dangKy.sinhVien.id}">
+                </option>
+            </select>
+        </p>
+
+        <p>
+            Đề tài:
+            <select name="deTaiId" required>
+                <option th:each="dt : ${dsDeTai}"
+                        th:value="${dt.id}"
+                        th:text="${dt.maDeTai + ' - ' + dt.tenDeTai}"
+                        th:selected="${dt.id == dangKy.deTai.id}">
+                </option>
+            </select>
+        </p>
+
+        <p>
+            Đợt đăng ký:
+            <select name="dotDangKyId" required>
+                <option th:each="dot : ${dsDotDangKy}"
+                        th:value="${dot.id}"
+                        th:text="${dot.tenDot}"
+                        th:selected="${dot.id == dangKy.dotDangKy.id}">
+                </option>
+            </select>
+        </p>
+
+        <p>
+            Trạng thái:
+            <select name="trangThai" required>
+                <option value="CHO_DUYET"
+                        th:selected="${dangKy.trangThai == 'CHO_DUYET'}">
+                    Chờ duyệt
+                </option>
+
+                <option value="DA_DUYET"
+                        th:selected="${dangKy.trangThai == 'DA_DUYET'}">
+                    Đã duyệt
+                </option>
+
+                <option value="TU_CHOI"
+                        th:selected="${dangKy.trangThai == 'TU_CHOI'}">
+                    Từ chối
+                </option>
+            </select>
+        </p>
+
+        <p>
+            Ghi chú:
+            <textarea name="ghiChu"
+                      rows="4"
+                      cols="40"
+                      th:text="${dangKy.ghiChu}"></textarea>
+        </p>
+
+        <button type="submit">Cập nhật đăng ký</button>
+
+    </form>
+
+    <br>
+
+    <a href="/dangky">← Quay lại danh sách đăng ký</a>
+
+</body>
+
+</html>

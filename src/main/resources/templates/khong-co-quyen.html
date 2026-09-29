@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Không có quyền truy cập</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef3f8;
+        }
+
+        .access-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+
+        .access-box {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .access-header {
+            background: #286092;
+            color: white;
+            padding: 25px;
+            border-bottom: 5px solid #f2c94c;
+        }
+
+        .access-logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: white;
+            color: #286092;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .access-header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .access-content {
+            padding: 35px 30px;
+        }
+
+        .access-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fff3f3;
+            color: #b42318;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .access-content h2 {
+            margin: 0 0 12px;
+            color: #286092;
+            font-size: 21px;
+        }
+
+        .access-content p {
+            margin: 0 auto 25px;
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .access-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .access-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 11px 20px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            background: #286092;
+            color: white;
+        }
+
+        .access-btn:hover {
+            background: #1f4d76;
+        }
+
+        .logout-btn {
+            background: #6c757d;
+        }
+
+        .logout-btn:hover {
+            background: #565e64;
+        }
+
+        .access-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 15px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="access-page">
+
+    <div class="access-box">
+
+        <!-- HEADER -->
+
+        <div class="access-header">
+
+            <div class="access-logo">
+                UTE
+            </div>
+
+            <h1>
+                HỆ THỐNG QUẢN LÝ ĐỀ TÀI
+            </h1>
+
+        </div>
+
+
+        <!-- NỘI DUNG -->
+
+        <div class="access-content">
+
+            <div class="access-icon">
+                !
+            </div>
+
+            <h2>
+                KHÔNG CÓ QUYỀN TRUY CẬP
+            </h2>
+
+            <p>
+                Tài khoản của bạn không có quyền sử dụng chức năng này.
+                Vui lòng quay lại trang chủ để tiếp tục sử dụng hệ thống.
+            </p>
+
+
+            <div class="access-actions">
+
+                <a th:href="@{/}"
+                   class="access-btn">
+                    ← Quay về trang chủ
+                </a>
+
+                <a th:href="@{/dangxuat}"
+                   class="access-btn logout-btn">
+                    Đăng xuất
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="access-footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

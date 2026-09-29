@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Đăng ký đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    ĐĂNG KÝ ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Đăng ký đề tài cho nhóm
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Nhóm trưởng lựa chọn đề tài và đợt đăng ký phù hợp.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG BÁO LỖI -->
+
+            <div th:if="${loi}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <!-- CHỈ HIỆN KHI KHÔNG CÓ LỖI -->
+
+            <div th:if="${loi == null}">
+
+
+                <!-- THÔNG TIN NHÓM -->
+
+                <div th:if="${nhom != null}"
+                     style="max-width:850px;
+                            background:#f0f7ff;
+                            border:1px solid #b8d6f2;
+                            padding:16px 18px;
+                            border-radius:4px;
+                            margin-bottom:20px;">
+
+                    <div style="font-size:13px;
+                                color:#64748b;
+                                margin-bottom:5px;">
+                        NHÓM THỰC HIỆN
+                    </div>
+
+                    <strong style="color:#286092; font-size:16px;"
+                            th:text="${nhom.maNhom + ' - ' + nhom.tenNhom}">
+                    </strong>
+
+                </div>
+
+
+                <form th:action="@{/dangky/them}"
+                      method="post">
+
+
+                    <p>
+
+                        <label for="deTaiId">
+                            Đề tài
+                        </label>
+
+                        <select id="deTaiId"
+                                name="deTaiId"
+                                required>
+
+                            <option value="">
+                                -- Chọn đề tài --
+                            </option>
+
+                            <option th:each="dt : ${dsDeTai}"
+                                    th:value="${dt.id}"
+                                    th:text="${dt.maDeTai + ' - ' + dt.tenDeTai}">
+                            </option>
+
+                        </select>
+
+                    </p>
+
+
+                    <p>
+
+                        <label for="dotDangKyId">
+                            Đợt đăng ký
+                        </label>
+
+                        <select id="dotDangKyId"
+                                name="dotDangKyId"
+                                required>
+
+                            <option value="">
+                                -- Chọn đợt đăng ký --
+                            </option>
+
+                            <option th:each="dot : ${dsDotDangKy}"
+                                    th:value="${dot.id}"
+                                    th:text="${dot.tenDot}">
+                            </option>
+
+                        </select>
+
+                    </p>
+
+
+                    <p>
+
+                        <label for="ghiChu">
+                            Ghi chú
+                        </label>
+
+                        <textarea id="ghiChu"
+                                  name="ghiChu"
+                                  rows="5"
+                                  placeholder="Nhập ghi chú nếu có"></textarea>
+
+                    </p>
+
+
+                    <div style="background:#fffbea;
+                                border-left:4px solid #f2c94c;
+                                padding:12px 15px;
+                                margin:15px 0 20px;
+                                max-width:850px;
+                                font-size:14px;
+                                color:#555;">
+
+                        Đăng ký được thực hiện cho
+                        <strong>toàn bộ nhóm</strong>.
+                        Sau khi gửi, đăng ký sẽ ở trạng thái
+                        <strong>Chờ duyệt</strong>.
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button type="submit">
+                            Đăng ký đề tài
+                        </button>
+
+                        <a th:href="@{/dangky}"
+                           class="btn"
+                           style="background:#6c757d;">
+                            Hủy
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <a th:href="@{/dangky}"
+               class="back-link">
+                ← Quay lại danh sách đăng ký
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

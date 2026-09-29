@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý bộ môn</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ BỘ MÔN
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách bộ môn
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Quản lý các bộ môn thuộc Khoa Công nghệ thông tin.
+                    </p>
+
+                </div>
+
+                <a th:href="@{/bomon/them}"
+                   class="btn">
+                    + Thêm bộ môn
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Mã bộ môn</th>
+                        <th>Tên bộ môn</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="bm : ${dsBoMon}">
+
+                        <td th:text="${bm.id}"></td>
+
+                        <td>
+                            <strong th:text="${bm.maBoMon}"></strong>
+                        </td>
+
+                        <td th:text="${bm.tenBoMon}"></td>
+
+                        <td>
+
+                            <span th:if="${bm.trangThai == 'HOAT_DONG'}"
+                                  style="font-weight:600; color:#198754;">
+                                Hoạt động
+                            </span>
+
+                            <span th:if="${bm.trangThai == 'NGUNG_HOAT_DONG'}"
+                                  style="font-weight:600; color:#dc3545;">
+                                Ngừng hoạt động
+                            </span>
+
+                            <span th:if="${bm.trangThai != 'HOAT_DONG'
+                                         and bm.trangThai != 'NGUNG_HOAT_DONG'}"
+                                  th:text="${bm.trangThai}">
+                            </span>
+
+                        </td>
+
+                        <td>
+
+                            <a th:href="@{/bomon/sua/{id}(id=${bm.id})}"
+                               class="btn">
+                                Sửa
+                            </a>
+
+                            <a th:href="@{/bomon/xoa/{id}(id=${bm.id})}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Bạn có chắc muốn xóa bộ môn này?')">
+                                Xóa
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsBoMon)}">
+
+                        <td colspan="5"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có bộ môn nào trong hệ thống.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Mỗi đề tài trong hệ thống sẽ được quản lý
+                theo một <strong>bộ môn cụ thể</strong>.
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

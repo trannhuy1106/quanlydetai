@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quản lý báo cáo đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    QUẢN LÝ BÁO CÁO ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Danh sách báo cáo đề tài
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Theo dõi và tải các báo cáo đã được nhóm sinh viên nộp.
+                    </p>
+
+                </div>
+
+
+                <a th:href="@{/baocao/them}"
+                   class="btn"
+                   th:if="${session.taiKhoan != null
+                           and session.taiKhoan.vaiTro == 'SINH_VIEN'}">
+                    + Nộp báo cáo
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto;">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Nhóm</th>
+                        <th>Đề tài</th>
+                        <th>Tên báo cáo</th>
+                        <th>File báo cáo</th>
+                        <th>Ngày nộp</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    <tr th:each="bc : ${dsBaoCao}">
+
+                        <td th:text="${bc.id}"></td>
+
+
+                        <td>
+                            <strong th:text="${bc.nhom.maNhom + ' - ' + bc.nhom.tenNhom}">
+                            </strong>
+                        </td>
+
+
+                        <td>
+                            <span th:text="${bc.deTai.maDeTai + ' - ' + bc.deTai.tenDeTai}">
+                            </span>
+                        </td>
+
+
+                        <td th:text="${bc.tenBaoCao}"></td>
+
+
+                        <!-- FILE BÁO CÁO -->
+
+                        <td>
+
+                            <div th:if="${bc.fileBaoCao != null
+                                        and !#strings.isEmpty(bc.fileBaoCao)}">
+
+                                <div style="color:#64748b;
+                                            font-size:12px;
+                                            margin-bottom:6px;"
+                                     th:text="${bc.fileBaoCao}">
+                                </div>
+
+                                <a th:href="@{/baocao/tai/{id}(id=${bc.id})}"
+                                   class="btn">
+                                    Tải file
+                                </a>
+
+                            </div>
+
+
+                            <span th:if="${bc.fileBaoCao == null
+                                         or #strings.isEmpty(bc.fileBaoCao)}"
+                                  style="color:#94a3b8;">
+                                Chưa có file
+                            </span>
+
+                        </td>
+
+
+                        <td th:text="${bc.ngayNop}"></td>
+
+
+                        <td>
+
+                            <span th:if="${bc.trangThai == 'DA_NOP'}"
+                                  style="font-weight:600;
+                                         color:#198754;">
+                                Đã nộp
+                            </span>
+
+                            <span th:if="${bc.trangThai != 'DA_NOP'}"
+                                  th:text="${bc.trangThai}">
+                            </span>
+
+                        </td>
+
+
+                        <td>
+
+                            <a th:href="@{/baocao/xoa/{id}(id=${bc.id})}"
+                               class="btn btn-danger"
+                               onclick="return confirm('Bạn có chắc muốn xóa báo cáo này?')">
+                                Xóa
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr th:if="${#lists.isEmpty(dsBaoCao)}">
+
+                        <td colspan="8"
+                            style="text-align:center;
+                                   padding:30px;
+                                   color:#64748b;">
+
+                            Chưa có báo cáo đề tài nào được nộp.
+
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div style="background:#fffbea;
+                        border-left:4px solid #f2c94c;
+                        padding:12px 15px;
+                        margin-top:20px;
+                        font-size:14px;
+                        color:#555;">
+
+                Báo cáo của nhóm được nộp bởi
+                <strong>nhóm trưởng</strong>.
+                File báo cáo hỗ trợ định dạng
+                <strong>PDF, DOC và DOCX</strong>.
+
+            </div>
+
+
+            <a th:href="@{/}"
+               class="back-link">
+                ← Quay lại trang chủ
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>

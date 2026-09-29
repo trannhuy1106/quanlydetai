@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<aside class="sidebar" th:fragment="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            <img th:src="@{/images/ute_logo.png}"
+                 src="/images/ute_logo.png"
+                 alt="HCMUTE Logo">
+        </div>
+
+    </div>
+
+
+    <div class="profile"
+         th:if="${session.taiKhoan != null}">
+
+        <div class="profile-avatar">
+            <span th:text="${#strings.substring(session.taiKhoan.hoTen,0,1)}">
+                U
+            </span>
+        </div>
+
+        <div class="profile-info">
+
+            <strong th:text="${session.taiKhoan.hoTen}">
+                Người dùng
+            </strong>
+
+            <span th:if="${session.taiKhoan.vaiTro == 'ADMIN'}">
+                Quản trị viên
+            </span>
+
+            <span th:if="${session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
+                Giảng viên
+            </span>
+
+            <span th:if="${session.taiKhoan.vaiTro == 'SINH_VIEN'}">
+                Sinh viên
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <div class="menu-title">
+            TRANG CHÍNH
+        </div>
+
+        <a th:href="@{/}" class="menu-item">
+            <span class="menu-icon">⌂</span>
+            <span>Trang chủ</span>
+        </a>
+
+
+        <!-- ADMIN -->
+
+        <div th:if="${session.taiKhoan != null
+                and session.taiKhoan.vaiTro == 'ADMIN'}">
+
+            <div class="menu-title">
+                QUẢN LÝ HỆ THỐNG
+            </div>
+
+            <a th:href="@{/detai}" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Quản lý đề tài</span>
+            </a>
+
+            <a th:href="@{/bomon}" class="menu-item">
+                <span class="menu-icon">▦</span>
+                <span>Bộ môn</span>
+            </a>
+
+            <a th:href="@{/dotdangky}" class="menu-item">
+                <span class="menu-icon">▤</span>
+                <span>Đợt đăng ký</span>
+            </a>
+
+            <a th:href="@{/sinhvien}" class="menu-item">
+                <span class="menu-icon">♙</span>
+                <span>Sinh viên</span>
+            </a>
+
+            <a th:href="@{/giangvien}" class="menu-item">
+                <span class="menu-icon">♟</span>
+                <span>Giảng viên</span>
+            </a>
+
+            <a th:href="@{/nhom}" class="menu-item">
+                <span class="menu-icon">♚</span>
+                <span>Nhóm sinh viên</span>
+            </a>
+
+            <a th:href="@{/thanhviennhom}" class="menu-item">
+                <span class="menu-icon">♟</span>
+                <span>Thành viên nhóm</span>
+            </a>
+
+            <a th:href="@{/dangky}" class="menu-item">
+                <span class="menu-icon">✓</span>
+                <span>Đăng ký đề tài</span>
+            </a>
+
+
+            <div class="menu-title">
+                PHÂN CÔNG
+            </div>
+
+            <a th:href="@{/phancong}" class="menu-item">
+                <span class="menu-icon">◆</span>
+                <span>Phân công hướng dẫn</span>
+            </a>
+
+            <a th:href="@{/phanbien}" class="menu-item">
+                <span class="menu-icon">◇</span>
+                <span>Phân công phản biện</span>
+            </a>
+
+            <a th:href="@{/hoidong}" class="menu-item">
+                <span class="menu-icon">♜</span>
+                <span>Hội đồng phản biện</span>
+            </a>
+
+
+            <div class="menu-title">
+                KẾT QUẢ
+            </div>
+
+            <a th:href="@{/baocao}" class="menu-item">
+                <span class="menu-icon">▧</span>
+                <span>Báo cáo đề tài</span>
+            </a>
+
+            <a th:href="@{/diem}" class="menu-item">
+                <span class="menu-icon">★</span>
+                <span>Điểm đánh giá</span>
+            </a>
+
+            <a th:href="@{/thongbao}" class="menu-item">
+                <span class="menu-icon">●</span>
+                <span>Thông báo</span>
+            </a>
+
+            <a th:href="@{/taikhoan}" class="menu-item">
+                <span class="menu-icon">⚙</span>
+                <span>Quản lý tài khoản</span>
+            </a>
+
+        </div>
+
+
+        <!-- GIẢNG VIÊN -->
+
+        <div th:if="${session.taiKhoan != null
+                and session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
+
+            <div class="menu-title">
+                GIẢNG VIÊN
+            </div>
+
+            <a th:href="@{/detai}" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Danh sách đề tài</span>
+            </a>
+
+            <a th:href="@{/phancong}" class="menu-item">
+                <span class="menu-icon">◆</span>
+                <span>Hướng dẫn đề tài</span>
+            </a>
+
+            <a th:href="@{/phanbien}" class="menu-item">
+                <span class="menu-icon">◇</span>
+                <span>Phản biện</span>
+            </a>
+
+            <a th:href="@{/diem}" class="menu-item">
+                <span class="menu-icon">★</span>
+                <span>Chấm điểm</span>
+            </a>
+
+            <a th:href="@{/thongbao}" class="menu-item">
+                <span class="menu-icon">●</span>
+                <span>Thông báo</span>
+            </a>
+
+        </div>
+
+
+        <!-- SINH VIÊN -->
+
+        <div th:if="${session.taiKhoan != null
+                and session.taiKhoan.vaiTro == 'SINH_VIEN'}">
+
+            <div class="menu-title">
+                SINH VIÊN
+            </div>
+
+            <a th:href="@{/detai}" class="menu-item">
+                <span class="menu-icon">▣</span>
+                <span>Danh sách đề tài</span>
+            </a>
+
+            <a th:href="@{/dangky}" class="menu-item">
+                <span class="menu-icon">✓</span>
+                <span>Đăng ký đề tài</span>
+            </a>
+
+            <a th:href="@{/baocao}" class="menu-item">
+                <span class="menu-icon">▧</span>
+                <span>Nộp báo cáo</span>
+            </a>
+
+            <a th:href="@{/thongbao}" class="menu-item">
+                <span class="menu-icon">●</span>
+                <span>Thông báo</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+</aside>
+
+</body>
+</html>

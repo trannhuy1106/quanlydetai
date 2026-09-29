@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nộp báo cáo đề tài</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+
+    <main class="main">
+
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+
+        <div class="content">
+
+            <div class="page-title">
+
+                <div class="page-title-label">
+                    NỘP BÁO CÁO ĐỀ TÀI
+                </div>
+
+                <div class="page-title-line"></div>
+
+            </div>
+
+
+            <div class="page-header">
+
+                <div>
+
+                    <h2 style="color:#286092; margin-bottom:6px;">
+                        Nộp báo cáo của nhóm
+                    </h2>
+
+                    <p style="color:#64748b; font-size:14px;">
+                        Nhóm trưởng thực hiện nộp báo cáo cho đề tài của nhóm.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- THÔNG BÁO LỖI -->
+
+            <div th:if="${loi}"
+                 style="max-width:850px;
+                        background:#fff3f3;
+                        border:1px solid #f1b5b5;
+                        color:#b42318;
+                        padding:14px 16px;
+                        border-radius:4px;
+                        margin-bottom:20px;
+                        font-weight:600;"
+                 th:text="${loi}">
+            </div>
+
+
+            <!-- FORM -->
+
+            <div th:if="${loi == null}">
+
+
+                <!-- THÔNG TIN NHÓM -->
+
+                <div th:if="${nhom != null}"
+                     style="background:white;
+                            border:1px solid #ddd;
+                            padding:18px 20px;
+                            margin-bottom:20px;
+                            border-radius:4px;
+                            max-width:850px;">
+
+                    <div style="font-size:14px;
+                                color:#64748b;
+                                margin-bottom:6px;">
+                        Nhóm sinh viên
+                    </div>
+
+                    <div style="font-size:18px;
+                                font-weight:700;
+                                color:#286092;"
+                         th:text="${nhom.maNhom + ' - ' + nhom.tenNhom}">
+                    </div>
+
+                </div>
+
+
+                <!-- FORM NỘP BÁO CÁO -->
+
+                <form th:action="@{/baocao/them}"
+                      method="post"
+                      enctype="multipart/form-data">
+
+
+                    <!-- ĐỀ TÀI -->
+
+                    <p>
+
+                        <label for="deTaiId">
+                            Đề tài
+                        </label>
+
+                        <select id="deTaiId"
+                                name="deTaiId"
+                                required>
+
+                            <option value="">
+                                -- Chọn đề tài --
+                            </option>
+
+                            <option th:each="dt : ${dsDeTai}"
+                                    th:value="${dt.id}"
+                                    th:text="${dt.maDeTai + ' - ' + dt.tenDeTai}">
+                            </option>
+
+                        </select>
+
+                    </p>
+
+
+                    <!-- TÊN BÁO CÁO -->
+
+                    <p>
+
+                        <label for="tenBaoCao">
+                            Tên báo cáo
+                        </label>
+
+                        <input type="text"
+                               id="tenBaoCao"
+                               name="tenBaoCao"
+                               placeholder="Ví dụ: Báo cáo cuối kỳ"
+                               required>
+
+                    </p>
+
+
+                    <!-- FILE BÁO CÁO -->
+
+                    <p>
+
+                        <label for="fileBaoCao">
+                            File báo cáo
+                        </label>
+
+                        <input type="file"
+                               id="fileBaoCao"
+                               name="fileBaoCao"
+                               accept=".pdf,.doc,.docx"
+                               required>
+
+                    </p>
+
+
+                    <!-- LƯU Ý -->
+
+                    <div style="background:#fffbea;
+                                border-left:4px solid #f2c94c;
+                                padding:12px 15px;
+                                margin:15px 0 20px;
+                                font-size:14px;
+                                color:#555;">
+
+                        <strong>Lưu ý:</strong>
+
+                        <br><br>
+
+                        • Chỉ <strong>nhóm trưởng</strong>
+                        mới có quyền nộp báo cáo.
+
+                        <br>
+
+                        • File được chấp nhận:
+                        <strong>PDF, DOC, DOCX</strong>.
+
+                        <br>
+
+                        • Hãy kiểm tra đúng file trước khi nộp.
+
+                    </div>
+
+
+                    <!-- BUTTON -->
+
+                    <div class="actions">
+
+                        <button type="submit">
+                            Nộp báo cáo
+                        </button>
+
+                        <a th:href="@{/baocao}"
+                           class="btn"
+                           style="background:#6c757d;">
+                            Hủy
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <a th:href="@{/baocao}"
+               class="back-link">
+                ← Quay lại danh sách báo cáo
+            </a>
+
+        </div>
+
+
+        <footer class="footer">
+            Hệ thống quản lý đề tài - HCMUTE
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
