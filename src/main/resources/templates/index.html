@@ -7,7 +7,9 @@
 
     <title>Hệ thống quản lý đề tài</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/style.css}"
+          href="/css/style.css">
 </head>
 
 <body>
@@ -25,20 +27,14 @@
         <div class="content">
 
             <!-- TIÊU ĐỀ -->
-
             <div class="page-title">
-
                 <div class="page-title-label">
                     TRANG CHỦ
                 </div>
-
                 <div class="page-title-line"></div>
-
             </div>
 
-
             <!-- CHÀO MỪNG -->
-
             <section class="welcome-panel">
 
                 <h2>
@@ -50,7 +46,6 @@
                 </h2>
 
                 <p th:if="${session.taiKhoan != null}">
-
                     Bạn đang đăng nhập với vai trò
 
                     <strong th:if="${session.taiKhoan.vaiTro == 'ADMIN'}">
@@ -64,7 +59,6 @@
                     <strong th:if="${session.taiKhoan.vaiTro == 'SINH_VIEN'}">
                         Sinh viên
                     </strong>.
-
                 </p>
 
                 <p>
@@ -75,11 +69,7 @@
 
             </section>
 
-
-            <!-- ================================================= -->
             <!-- ADMIN DASHBOARD -->
-            <!-- ================================================= -->
-
             <section th:if="${session.taiKhoan != null
                             and session.taiKhoan.vaiTro == 'ADMIN'}">
 
@@ -89,197 +79,122 @@
 
                 <div class="dashboard-grid">
 
-
-                    <a th:href="@{/detai}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/detai}" class="dashboard-card">
                         <div class="dashboard-icon">▣</div>
-
                         <div>
                             <h3>Quản lý đề tài</h3>
                             <p>Danh sách và thông tin các đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/dotdangky}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/dotdangky}" class="dashboard-card">
                         <div class="dashboard-icon">▤</div>
-
                         <div>
                             <h3>Đợt đăng ký</h3>
                             <p>Quản lý thời gian đăng ký đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/sinhvien}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/sinhvien}" class="dashboard-card">
                         <div class="dashboard-icon">♙</div>
-
                         <div>
                             <h3>Sinh viên</h3>
                             <p>Quản lý thông tin sinh viên.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/giangvien}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/giangvien}" class="dashboard-card">
                         <div class="dashboard-icon">♟</div>
-
                         <div>
                             <h3>Giảng viên</h3>
                             <p>Quản lý thông tin giảng viên.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/nhom}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/nhom}" class="dashboard-card">
                         <div class="dashboard-icon">♚</div>
-
                         <div>
                             <h3>Nhóm sinh viên</h3>
                             <p>Quản lý các nhóm thực hiện đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/thanhviennhom}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/thanhviennhom}" class="dashboard-card">
                         <div class="dashboard-icon">♟</div>
-
                         <div>
                             <h3>Thành viên nhóm</h3>
                             <p>Quản lý thành viên của từng nhóm.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/dangky}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/dangky}" class="dashboard-card">
                         <div class="dashboard-icon">✓</div>
-
                         <div>
                             <h3>Đăng ký đề tài</h3>
                             <p>Theo dõi và duyệt đăng ký đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/phancong}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/phancong}" class="dashboard-card">
                         <div class="dashboard-icon">◆</div>
-
                         <div>
                             <h3>Phân công hướng dẫn</h3>
                             <p>Phân công giảng viên hướng dẫn đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/phanbien}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/phanbien}" class="dashboard-card">
                         <div class="dashboard-icon">◇</div>
-
                         <div>
                             <h3>Phân công phản biện</h3>
                             <p>Phân công giảng viên phản biện.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/hoidong}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/hoidong}" class="dashboard-card">
                         <div class="dashboard-icon">♜</div>
-
                         <div>
                             <h3>Hội đồng phản biện</h3>
                             <p>Quản lý hội đồng và thành viên hội đồng.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/baocao}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/baocao}" class="dashboard-card">
                         <div class="dashboard-icon">▧</div>
-
                         <div>
                             <h3>Báo cáo đề tài</h3>
                             <p>Theo dõi báo cáo của các nhóm sinh viên.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/diem}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/diem}" class="dashboard-card">
                         <div class="dashboard-icon">★</div>
-
                         <div>
                             <h3>Điểm đánh giá</h3>
                             <p>Theo dõi kết quả đánh giá đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/thongbao}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/thongbao}" class="dashboard-card">
                         <div class="dashboard-icon">●</div>
-
                         <div>
                             <h3>Thông báo</h3>
                             <p>Quản lý thông báo của hệ thống.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/taikhoan}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/taikhoan}" class="dashboard-card">
                         <div class="dashboard-icon">⚙</div>
-
                         <div>
                             <h3>Quản lý tài khoản</h3>
                             <p>Quản lý tài khoản và phân quyền.</p>
                         </div>
-
                     </a>
 
                 </div>
-
             </section>
 
-
-            <!-- ================================================= -->
             <!-- GIẢNG VIÊN DASHBOARD -->
-            <!-- ================================================= -->
-
             <section th:if="${session.taiKhoan != null
                             and session.taiKhoan.vaiTro == 'GIANG_VIEN'}">
 
@@ -289,80 +204,50 @@
 
                 <div class="dashboard-grid">
 
-
-                    <a th:href="@{/detai}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/detai}" class="dashboard-card">
                         <div class="dashboard-icon">▣</div>
-
                         <div>
                             <h3>Danh sách đề tài</h3>
                             <p>Xem các đề tài trong hệ thống.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/phancong}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/phancong}" class="dashboard-card">
                         <div class="dashboard-icon">◆</div>
-
                         <div>
                             <h3>Hướng dẫn đề tài</h3>
                             <p>Xem các đề tài được phân công hướng dẫn.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/phanbien}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/phanbien}" class="dashboard-card">
                         <div class="dashboard-icon">◇</div>
-
                         <div>
                             <h3>Phản biện</h3>
                             <p>Xem phân công phản biện đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/diem}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/diem}" class="dashboard-card">
                         <div class="dashboard-icon">★</div>
-
                         <div>
                             <h3>Chấm điểm</h3>
                             <p>Nhập điểm và nhận xét cho đề tài.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/thongbao}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/thongbao}" class="dashboard-card">
                         <div class="dashboard-icon">●</div>
-
                         <div>
                             <h3>Thông báo</h3>
                             <p>Xem các thông báo trên hệ thống.</p>
                         </div>
-
                     </a>
 
                 </div>
-
             </section>
 
-
-            <!-- ================================================= -->
             <!-- SINH VIÊN DASHBOARD -->
-            <!-- ================================================= -->
-
             <section th:if="${session.taiKhoan != null
                             and session.taiKhoan.vaiTro == 'SINH_VIEN'}">
 
@@ -372,48 +257,31 @@
 
                 <div class="dashboard-grid">
 
-
-                    <a th:href="@{/detai}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/detai}" class="dashboard-card">
                         <div class="dashboard-icon">▣</div>
-
                         <div>
                             <h3>Danh sách đề tài</h3>
                             <p>Xem các đề tài được công bố.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/dangky}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/dangky}" class="dashboard-card">
                         <div class="dashboard-icon">✓</div>
-
                         <div>
                             <h3>Đăng ký đề tài</h3>
                             <p>Đăng ký đề tài cho nhóm sinh viên.</p>
                         </div>
-
                     </a>
 
-
-                    <a th:href="@{/baocao}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/baocao}" class="dashboard-card">
                         <div class="dashboard-icon">▧</div>
-
                         <div>
                             <h3>Nộp báo cáo</h3>
                             <p>Nộp báo cáo thực hiện đề tài.</p>
                         </div>
-
                     </a>
 
-
                     <!-- ĐÃ CÓ ĐỀ TÀI ĐƯỢC DUYỆT -->
-
                     <a th:if="${deTaiKetQua != null}"
                        th:href="@{/diem/ketqua/{id}(id=${deTaiKetQua.id})}"
                        class="dashboard-card">
@@ -421,7 +289,6 @@
                         <div class="dashboard-icon">★</div>
 
                         <div>
-
                             <h3>Kết quả đánh giá</h3>
 
                             <p>
@@ -430,14 +297,11 @@
                                     đề tài
                                 </strong>.
                             </p>
-
                         </div>
 
                     </a>
 
-
                     <!-- CHƯA CÓ ĐỀ TÀI ĐƯỢC DUYỆT -->
-
                     <div th:if="${deTaiKetQua == null}"
                          class="dashboard-card dashboard-disabled">
 
@@ -450,25 +314,18 @@
 
                     </div>
 
-
-                    <a th:href="@{/thongbao}"
-                       class="dashboard-card">
-
+                    <a th:href="@{/thongbao}" class="dashboard-card">
                         <div class="dashboard-icon">●</div>
-
                         <div>
                             <h3>Thông báo</h3>
                             <p>Xem các thông báo mới của hệ thống.</p>
                         </div>
-
                     </a>
 
                 </div>
-
             </section>
 
         </div>
-
 
         <footer class="footer">
             Hệ thống quản lý đề tài - HCMUTE
