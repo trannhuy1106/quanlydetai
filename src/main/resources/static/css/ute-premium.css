@@ -1,0 +1,64 @@
+/* HCM-UTE Premium — append after existing stylesheet */
+:root{--ute-blue:#174c89;--ute-blue-dark:#102f5c;--ute-blue-light:#327ad1;--ute-yellow:#ffce53;--ute-red:#e64b67;--background:#f2f6fc;--text:#20334f;--muted:#718198;--border:#e2eaf4;--sidebar-width:280px}
+body{background:linear-gradient(145deg,#eef5ff 0%,#f8fbff 55%,#eef2fa 100%);font-family:'Segoe UI',system-ui,Arial,sans-serif;line-height:1.55}
+.sidebar{background:linear-gradient(170deg,#123d73 0%,#102c55 60%,#091d3c 100%);box-shadow:8px 0 30px rgba(13,42,79,.10);scrollbar-width:thin;scrollbar-color:#45668c transparent}
+.brand{min-height:185px;border-bottom:1px solid rgba(255,255,255,.12);background:radial-gradient(circle at 50% 25%,rgba(110,178,255,.16),transparent 70%)}
+.brand-logo{width:145px;height:160px}
+.profile{margin:14px 12px;padding:15px 13px;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(255,255,255,.07)}
+.profile-avatar{background:linear-gradient(145deg,#fff,#dceaff);color:#174c89;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.profile-info span{color:#c1d7ee}
+.menu-title{color:#ffda78;letter-spacing:1.2px;text-transform:uppercase;padding-top:22px}
+.menu-item{margin:3px 10px;padding:11px 15px;border-left:0;border-radius:11px;color:#e6effc;transition:background .2s,transform .2s,color .2s}
+.menu-item:hover{background:rgba(255,255,255,.12);border-left-color:transparent;color:#fff;transform:translateX(3px)}
+.menu-item.active{background:linear-gradient(100deg,#3683dc,#2466b5);color:#fff;border-left-color:transparent;box-shadow:0 5px 16px rgba(0,0,0,.15)}
+.menu-icon{color:#bcdcff}
+.main{min-width:0}
+.topbar{min-height:100px;padding:20px 34px;background:linear-gradient(105deg,#174b87,#2b73bb);box-shadow:0 5px 22px rgba(24,77,135,.14)}
+.topbar h1{color:#fff;font-size:clamp(20px,2vw,27px);letter-spacing:.2px}
+.topbar p{color:#dcecff}
+.logout{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:10px 17px}
+.logout:hover{background:#e64b67}
+.content{padding:32px 34px 52px;min-width:0}
+.page-title{margin-bottom:26px}
+.page-title-label{background:linear-gradient(100deg,#174c89,#317bcc);border-radius:12px 12px 0 0;min-width:0;padding:11px 23px;font-size:20px;box-shadow:0 5px 14px rgba(28,84,145,.12)}
+.page-title-label::after{display:none}
+.page-title-line{height:3px;background:linear-gradient(90deg,#317bcc,#c6dcf5,transparent);border-radius:4px}
+.welcome-panel{border:1px solid #e1eaf5;border-radius:18px;padding:26px 30px;box-shadow:0 10px 32px rgba(32,74,128,.07);background:linear-gradient(115deg,#fff 65%,#f0f7ff)}
+.welcome-panel h2{font-size:23px;color:#174c89}
+.content-title{color:#174c89;border-bottom:2px solid #dce9f8;padding-bottom:12px}
+.dashboard-grid{gap:20px;grid-template-columns:repeat(auto-fit,minmax(235px,1fr))}
+.dashboard-card{min-height:125px;padding:22px;border:1px solid #e4ecf6;border-radius:17px;background:#fff;box-shadow:0 8px 25px rgba(31,78,130,.07);transition:transform .22s,box-shadow .22s,border-color .22s}
+.dashboard-card:hover{transform:translateY(-5px);border-color:#9ac4f1;box-shadow:0 16px 32px rgba(31,91,161,.15)}
+.dashboard-icon{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,#2369b3,#4d9df0);box-shadow:0 6px 15px rgba(39,113,192,.22)}
+.dashboard-card:nth-child(4n+2) .dashboard-icon{background:linear-gradient(135deg,#1c9a9c,#4ac7bc)}
+.dashboard-card:nth-child(4n+3) .dashboard-icon{background:linear-gradient(135deg,#7559c6,#aa88e9)}
+.dashboard-card:nth-child(4n+4) .dashboard-icon{background:linear-gradient(135deg,#e3a343,#f3c26a)}
+.dashboard-card h3{font-size:15px;color:#153e71}
+.dashboard-card p{color:#73849a}
+/* Tables: retain native table layout; scroll on small screens */
+table{border-collapse:separate;border-spacing:0;border:1px solid #e0e8f2;border-radius:15px;box-shadow:0 9px 28px rgba(31,78,130,.07);overflow:hidden;background:#fff}
+thead,th{background:#1d548e;color:#fff}
+th{padding:15px 16px;font-weight:650;border-right:1px solid rgba(255,255,255,.12);white-space:nowrap}
+td{padding:14px 16px;border-bottom:1px solid #edf1f7;color:#334760}
+tbody tr:nth-child(even){background:#f8faff}
+tbody tr:hover{background:#edf6ff}
+tbody tr:last-child td{border-bottom:0}
+form{background:#fff;border:1px solid #e2eaf4;border-radius:18px;box-shadow:0 10px 30px rgba(31,78,130,.08);padding:30px;max-width:900px}
+label{color:#29415f}
+input,select,textarea{border:1px solid #d5e0ed;border-radius:10px;padding:12px 14px;transition:border-color .2s,box-shadow .2s;background:#fbfdff}
+input:focus,select:focus,textarea:focus{border-color:#3c8add;box-shadow:0 0 0 4px rgba(49,123,204,.13)}
+input[type=checkbox],input[type=radio]{width:auto;accent-color:#286fbc}
+button,.btn{border-radius:10px;background:linear-gradient(110deg,#2466ad,#3587d6);padding:10px 17px;box-shadow:0 4px 12px rgba(30,91,156,.13);transition:transform .18s,filter .18s,box-shadow .18s}
+button:hover,.btn:hover{background:linear-gradient(110deg,#1c548f,#2876bd);transform:translateY(-1px);box-shadow:0 7px 17px rgba(30,91,156,.19)}
+.btn-success{background:#1e9b78}.btn-success:hover{background:#177c61}
+.btn-warning{background:#e6a534;color:#172c47}.btn-warning:hover{background:#d49224}
+.btn-danger{background:#df5065}.btn-danger:hover{background:#c73b51}
+.actions{gap:8px}
+.alert{border-radius:11px;padding:14px 18px}
+.page-header{gap:20px}
+.back-link{font-weight:600}
+.footer{background:transparent;color:#8a98ac;border-top:1px solid #e1e8f2}
+@media(max-width:900px){:root{--sidebar-width:230px}.content{padding:25px 20px}.dashboard-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+@media(max-width:700px){.sidebar{position:relative;width:100%;min-width:0;min-height:auto}.main{width:100%;margin-left:0}.content{padding:22px 14px}.topbar{padding:20px}.topbar-right{gap:10px}.dashboard-grid{grid-template-columns:1fr 1fr;gap:12px}.dashboard-card{padding:15px;min-height:110px}.dashboard-icon{width:43px;height:43px}.page-title-label{font-size:17px}table{display:block;overflow-x:auto;max-width:100%}form{padding:20px}}
+@media(max-width:480px){.dashboard-grid{grid-template-columns:1fr}.dashboard-card{min-height:90px}.welcome-panel{padding:20px}}
+@media(prefers-reduced-motion:reduce){.menu-item,.dashboard-card,button,.btn{transition:none!important;transform:none!important}}
